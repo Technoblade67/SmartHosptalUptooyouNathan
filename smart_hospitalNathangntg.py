@@ -4,7 +4,7 @@ import pickle
 import os
 import numpy as np
 
-st.set_page_config(page_title = "Smart Hospital Patient Navigator", page_icon = "🏥", layout="wide")
+st.set_page_config(page_title = "Smart Hospital Patient Navigator", page_icon = "🏥" layout="wide")
 
 st.markdown(""" 
 <style>
@@ -70,7 +70,7 @@ st.markdown("""
 
 @st.cache_resource
 def load_model():
-  with open('hospital_model.pkl', 'rb') as f:
+  with open('hospital-model.pkl', 'rb') as f:
     return pickle.load(f)
 
 bundle = load_model()
@@ -133,3 +133,39 @@ st.markdown("""
         </div>
     </div>
     """, unsafe_allow_html = True)
+
+with st.form("triage_form"):
+
+  st.markdown("""
+  <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:14px;
+                padding:20px 24px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <span style="background:#0284c7;color:white;border-radius:8px;
+                         padding:4px 10px;font-size:12px;font-weight:600;">1</span>
+            <span style="font-size:16px;font-weight:600;color:#0c4a6e;">What are your main symptoms?</span>
+            <span style="font-size:13px;color:#6b7280;font-style:italic;">select all that apply</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+  
+  c1, c2, c3, c4 = st.columns(4)
+  with c1:
+    fever            = st.checkbox("🌡️  Fever")
+    cough            = st.checkbox("🤧  Cough")
+  with c2:
+    headache         = st.checkbox("🤕  Headache")
+    chest_pain       = st.checkbox("💔  Chest Pain")
+  with c3:
+    stomach_pain     = st.checkbox("🤢  Stomach Pain")
+    shortness_breath = st.checkbox("😮‍💨  Shortness of Breath")
+  with c4:
+    nausea_vomiting  = st.checkbox("🤮  Nausea / Vomiting")
+    dizziness        = st.checkbox("😵  Dizziness")
+
+
+  c5, _, _, _ = st.columns(4)
+  with c5:
+    skin_rash = st.checkbox("🔴  Skin Rash")
+
+
+  st.markdown("<br>", unsafe_allow_html=True)
